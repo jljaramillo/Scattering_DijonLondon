@@ -1,0 +1,9 @@
+### CREATE LIST WITH FILES OF s-grid
+ls -1 Parameters/Re_s_\[-6\,0\]_Im_s_\[0\,6\]/* > list_of_files.txt
+
+### CHECK NUMBER OF LINES
+wc -l list_of_files.txt
+
+### ADAPT SUBMIT SCRIPT ACCORDINLY:
+### eg. if 'wc -l list_of_files.txt' output is '2501 list_of_files.txt'
+### Then change line 7 of script to '#$ -t 1-2501'
