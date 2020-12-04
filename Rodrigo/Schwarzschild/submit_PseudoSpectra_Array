@@ -1,0 +1,15 @@
+#!/bin/bash
+#$ -cwd
+#$ -j y
+#$ -pe smp 1
+#$ -l h_rt=01:00:0
+#$ -l h_vmem=4.G
+#$ -t 1-1
+#$ -tc 50
+
+INPUT_FILE=$(sed -n "${SGE_TASK_ID}p" list_of_files_missing.txt)
+echo ${SGE_TASK_ID}
+echo ${INPUT_FILE}
+
+module load mathematica
+math -script PseudoSpectra_Schwarzschild_AxialPert_LoadMatrices_18March20.m ${INPUT_FILE}
