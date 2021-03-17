@@ -20,7 +20,7 @@ z0=0;
 z1=1;
 \[CapitalDelta]z=z1-z0;
 
-Nz=400;
+Nz=20;
 spin=-2;
 l=2;
 
@@ -33,8 +33,8 @@ XX=N[Table[x[i,NzHigh],{i,0,NzHigh}],Prec];
 z=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,Nz]),{i,0,Nz}],Prec];
 zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 
-\[Sigma]=z;(*(1+z)/2;*)
-\[Sigma]\[Sigma]=zz;(*(1+zz)/2;*)
+\[Sigma]=z;
+\[Sigma]\[Sigma]=zz;
 
 
 (* ::Subsection:: *)
@@ -113,7 +113,7 @@ DzHighRes[[i+1,i+1]]= -Sum[ DzHighRes[[i+1,j+1]], {j,0,NzHigh} ];
 
 DzHighResT=Transpose@DzHighRes;
 
-D2z=N[Dz.Dz,Prec];
+D2z=N[Dz . Dz,Prec];
 (*D2zHigh=N[DzHighRes.DzHighRes,Prec];*)
 
 
@@ -196,54 +196,31 @@ VHighRes=l*(l+1)OneHighRes+(1-spin^2)*\[Sigma]\[Sigma];
 
 One=ConstantArray[1,Nz+1];
 V=l*(l+1)*One+(1-spin^2)*\[Sigma];
-L2=(\[Sigma]^2*(1-\[Sigma])*D2z + \[Sigma]*(2-3*\[Sigma])*Dz-V*Id)/(1+\[Sigma]);
-L1= ( (1-2*\[Sigma]^2)*Dz-2*\[Sigma]*Id )/(1+\[Sigma]);
+L1=(\[Sigma]^2*(1-\[Sigma])*D2z + \[Sigma]*(2-3*\[Sigma])*Dz-V*Id)/(1+\[Sigma]);
+L2= ( (1-2*\[Sigma]^2)*Dz-2*\[Sigma]*Id )/(1+\[Sigma]);
 
 
 (* ::Subsubsection:: *)
 (*Hilbert Space inner-product Matrices*)
 
 
-G1=\[Alpha]highRes*G;
-G2=VHighRes*G;
-G3=DzHighResT.(\[Gamma]HighRes*G).DzHighRes;
+G1a=VHighRes*G;
+G1b=DzHighResT . (\[Gamma]HighRes*G) . DzHighRes;
+G2=\[Alpha]highRes*G;
 
 
-H1=ILowToHighT.G1.ILowToHigh;
-H2=ILowToHighT.G2.ILowToHigh;
-H3=ILowToHighT.G3.ILowToHigh;
-
-AHighRes=G2+G3;
-AInvHighRes=Inverse@AHighRes;
-
-A=ILowToHighT.AHighRes.ILowToHigh;
-Ainv=Inverse@A;
-
-L2t=Transpose@L2;
-L2tInv=Inverse@L2t;
-
-Bi=-L2tInv.A;
-
-BiiInv=-L2.Ainv;
-Bii=Inverse@BiiInv;
+H1a=ILowToHighT . G1a . ILowToHigh;
+H1b=ILowToHighT . G1b . ILowToHigh;
+H2=ILowToHighT . G2 . ILowToHigh;
 
 
 H0=ArrayFlatten[{
-{H2+H3,Zero} , 
-{Zero,H1} }];
+{H1a+H1b,Zero} , 
+{Zero,H2} }];
 H0Inv=Inverse@H0;
 
-Hi=ArrayFlatten[{
-{A,Zero} , 
-{Zero,Bi} }];
 
-HiInv=Inverse@Hi;
-
-Hii=ArrayFlatten[{
-{A,Zero} , 
-{Zero,Bii} }];
-
-HiiInv=Inverse@Hii;
+s
 
 
 (* ::Subsubsection:: *)
@@ -252,48 +229,23 @@ HiiInv=Inverse@Hii;
 
 M=ArrayFlatten[{
 {Zero,Id} , 
-{L2,L1} }];
+{L1,L2} }];
 Mt=Transpose@M;
-
-
-MAdj0=H0Inv.Mt.H0;
-
-MAdj1=HiInv.Mt.Hi;
-
-MAdj2=HiiInv.Mt.Hii;
+MAdj0=H0Inv . Mt . H0;
 
 
 (* ::Subsubsection:: *)
 (*Export Matrices*)
 
 
-fn="OperatorMatrix/M_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/M_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 Export[fn,IntegerPart[10^(Prec+10)*M],"Table"];
 
-fn="OperatorMatrix/MAdj0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/MAdj0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 Export[fn,IntegerPart[10^(Prec+10)*MAdj0],"Table"];
 
-fn="OperatorMatrix/MAdj1_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
-Export[fn,IntegerPart[10^(Prec+10)*MAdj1],"Table"];
-
-fn="OperatorMatrix/MAdj2_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
-Export[fn,IntegerPart[10^(Prec+10)*MAdj2],"Table"];
-
-fn="OperatorMatrix/H0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/H0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 Export[fn,IntegerPart[10^(Prec+10)*H0],"Table"];
-
-fn="OperatorMatrix/Hi_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
-Export[fn,IntegerPart[10^(Prec+10)*Hi],"Table"];
-
-fn="OperatorMatrix/Hii_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
-Export[fn,IntegerPart[10^(Prec+10)*Hii],"Table"];
-
-
-
-
-
-
-
 
 
 
