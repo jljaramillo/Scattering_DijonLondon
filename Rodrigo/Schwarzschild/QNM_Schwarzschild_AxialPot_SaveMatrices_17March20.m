@@ -220,9 +220,6 @@ H0=ArrayFlatten[{
 H0Inv=Inverse@H0;
 
 
-s
-
-
 (* ::Subsubsection:: *)
 (*Discrete ODE operators and 'Adjoints'*)
 
