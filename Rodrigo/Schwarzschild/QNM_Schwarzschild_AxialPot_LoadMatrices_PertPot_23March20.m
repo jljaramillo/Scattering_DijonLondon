@@ -93,7 +93,7 @@ Norm\[Delta]M=Sqrt[Eigenvalues[\[Delta]MAdj . \[Delta]M,1][[1]]];
 
 
 (* ::Input::Initialization:: *)
-\[Epsilon]=N[10^kyLoad[[2]],Prec]
+\[Epsilon]=N[10^kyLoad[[2]],Prec];
 (*\[Epsilon]=10^(-3);*)
 M=MnoPert+\[Delta]M*\[Epsilon]/Norm\[Delta]M;
 
