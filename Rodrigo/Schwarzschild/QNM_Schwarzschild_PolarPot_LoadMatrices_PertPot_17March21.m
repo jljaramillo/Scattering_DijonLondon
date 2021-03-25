@@ -37,6 +37,12 @@ zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 \[Sigma]=z;(*(1+z)/2;*)
 \[Sigma]\[Sigma]=zz;(*(1+zz)/2;*)
 
+InputParFile=ToString[$CommandLine[[Length@$CommandLine]]];
+kyLoad=Import[InputParFile,"List"];
+Print[InputParFile];
+Print[ToString[kyLoad[[1]]]];
+Print[ToString[kyLoad[[2]]]];
+
 
 (* ::Subsubsection:: *)
 (*Load Matrices*)
@@ -55,7 +61,8 @@ H0Inv=Inverse@H0;
 
 
 (* ::Input::Initialization:: *)
-kk=10;
+kk=kyLoad[[1]];
+(*kk=10;*)
 \[Omega]=2*\[Pi]*kk;
 Vpert=N[Cos[\[Omega]*z],Prec];
 
@@ -82,7 +89,8 @@ Norm\[Delta]M=Sqrt[Eigenvalues[\[Delta]MAdj . \[Delta]M,1][[1]]];
 
 
 (* ::Input::Initialization:: *)
-\[Epsilon]=10^(-3);
+\[Epsilon]=N[10^kyLoad[[2]],Prec];
+(*\[Epsilon]=10^(-3);*)
 M=MnoPert+\[Delta]M*\[Epsilon]/Norm\[Delta]M;
 
 
