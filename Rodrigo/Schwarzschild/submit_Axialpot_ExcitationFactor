@@ -1,0 +1,11 @@
+#!/bin/bash
+#$ -cwd
+#$ -j y
+#$ -pe smp 1
+#$ -l h_rt=240:00:0
+#$ -l h_vmem=16.G
+#$ -m bea
+
+module load mathematica
+math -script Schwarzschild_AxialPot_ExcitationFactor_N150_e0.m
+echo "done saving matrices"

@@ -20,7 +20,7 @@ z0=0;
 z1=1;
 \[CapitalDelta]z=z1-z0;
 
-Nz=200;
+Nz=450;
 spin=-2;
 l=2;
 
