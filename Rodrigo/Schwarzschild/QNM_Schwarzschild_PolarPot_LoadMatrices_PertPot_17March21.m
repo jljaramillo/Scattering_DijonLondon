@@ -40,8 +40,6 @@ zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 InputParFile=ToString[$CommandLine[[Length@$CommandLine]]];
 kyLoad=Import[InputParFile,"List"];
 Print[InputParFile];
-Print[ToString[kyLoad[[1]]]];
-Print[ToString[kyLoad[[2]]]];
 
 
 (* ::Subsubsection:: *)
@@ -63,6 +61,7 @@ H0Inv=Inverse@H0;
 (* ::Input::Initialization:: *)
 kk=kyLoad[[1]];
 (*kk=10;*)
+Print[kk];
 \[Omega]=2*\[Pi]*kk;
 Vpert=N[Cos[\[Omega]*z],Prec];
 
@@ -90,6 +89,7 @@ Norm\[Delta]M=Sqrt[Eigenvalues[\[Delta]MAdj . \[Delta]M,1][[1]]];
 
 (* ::Input::Initialization:: *)
 \[Epsilon]=N[10^kyLoad[[2]],Prec];
+Print[\[Epsilon]];
 (*\[Epsilon]=10^(-3);*)
 M=MnoPert+\[Delta]M*\[Epsilon]/Norm\[Delta]M;
 
@@ -100,6 +100,7 @@ M=MnoPert+\[Delta]M*\[Epsilon]/Norm\[Delta]M;
 
 Print["Calculating QNM"];
 EigenSol=Eigensystem[N[M,Prec]];
+Print[\[Epsilon]];
 
 
 PosQNM=Position[EigenSol[[1]],x_/;Im@x!=0]//Flatten;
@@ -114,9 +115,10 @@ EigenSolBranchCut=Table[EigenSol[[j,PosBranch[[i]]]],{j,1,Length@EigenSol},{i,1,
 SpectrumData=Table[{Re@EigenSolQNM[[1,iqnm]],Im@EigenSolQNM[[1,iqnm]]},{iqnm,1,Length@EigenSolQNM[[1]]}];
 
 BranchCutData=Table[{Re@EigenSolBranchCut[[1,iqnm]],Im@EigenSolBranchCut[[1,iqnm]]},{iqnm,1,Length@EigenSolBranchCut[[1]]}];
-
+Print["Export Data"];
 fn="Data/PolarParity/Spectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[SpectrumData,Prec],"Table"];
 
 fn="Data/PolarParity/BranchSpectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[BranchCutData,Prec],"Table"];
+Print["Export Data"];

@@ -20,7 +20,7 @@ z0=0;
 z1=1;
 \[CapitalDelta]z=z1-z0;
 
-Nz=450;
+Nz=50;
 nz=Nz+1;
 spin=-2;
 l=2;
@@ -40,8 +40,6 @@ zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 InputParFile=ToString[$CommandLine[[Length@$CommandLine]]];
 kyLoad=Import[InputParFile,"List"];
 Print[InputParFile];
-Print[ToString[kyLoad[[1]]]];
-Print[ToString[kyLoad[[2]]]];
 
 
 (* ::Subsubsection:: *)
@@ -63,6 +61,7 @@ H0Inv=Inverse@H0;
 (* ::Input::Initialization:: *)
 kk=kyLoad[[1]];
 (*kk=10;*)
+Print[kk];
 \[Omega]=2*\[Pi]*kk;
 Vpert=N[Cos[\[Omega]*z],Prec];
 
@@ -94,6 +93,7 @@ Norm\[Delta]M=Sqrt[Eigenvalues[\[Delta]MAdj . \[Delta]M,1][[1]]];
 
 (* ::Input::Initialization:: *)
 \[Epsilon]=N[10^kyLoad[[2]],Prec];
+Print[\[Epsilon]];
 (*\[Epsilon]=10^(-3);*)
 M=MnoPert+\[Delta]M*\[Epsilon]/Norm\[Delta]M;
 
