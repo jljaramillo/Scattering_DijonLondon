@@ -38,7 +38,7 @@ zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 \[Sigma]\[Sigma]=zz;(*(1+zz)/2;*)
 
 InputParFile=ToString[$CommandLine[[Length@$CommandLine]]];
-kyLoad=Import[InputParFile,"List"];
+kyLoad=ToExpression@Import[InputParFile,"List"];
 Print[InputParFile];
 
 
@@ -88,7 +88,9 @@ Norm\[Delta]M=Sqrt[Eigenvalues[\[Delta]MAdj . \[Delta]M,1][[1]]];
 
 
 (* ::Input::Initialization:: *)
-\[Epsilon]=N[10^kyLoad[[2]],Prec];
+y=N[kyLoad[[2]],Prec];
+\[Epsilon]=N[10^y,Prec];
+Print[y];
 Print[\[Epsilon]];
 (*\[Epsilon]=10^(-3);*)
 M=MnoPert+\[Delta]M*\[Epsilon]/Norm\[Delta]M;
@@ -116,9 +118,9 @@ SpectrumData=Table[{Re@EigenSolQNM[[1,iqnm]],Im@EigenSolQNM[[1,iqnm]]},{iqnm,1,L
 
 BranchCutData=Table[{Re@EigenSolBranchCut[[1,iqnm]],Im@EigenSolBranchCut[[1,iqnm]]},{iqnm,1,Length@EigenSolBranchCut[[1]]}];
 Print["Export Data"];
-fn="Data/PolarParity/Spectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
+fn="Data/PolarParity/Spectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_log10eps_"<>ToString[N[y]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[SpectrumData,Prec],"Table"];
 
-fn="Data/PolarParity/BranchSpectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
+fn="Data/PolarParity/BranchSpectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_log10eps_"<>ToString[N[y]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[BranchCutData,Prec],"Table"];
 Print["Export Data"];

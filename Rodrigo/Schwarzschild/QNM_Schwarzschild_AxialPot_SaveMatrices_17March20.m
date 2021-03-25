@@ -20,7 +20,7 @@ z0=0;
 z1=1;
 \[CapitalDelta]z=z1-z0;
 
-Nz=20;
+Nz=50;
 spin=-2;
 l=2;
 
@@ -243,6 +243,12 @@ Export[fn,IntegerPart[10^(Prec+10)*MAdj0],"Table"];
 
 fn="OperatorMatrix/AxialParity/H0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 Export[fn,IntegerPart[10^(Prec+10)*H0],"Table"];
+
+fn="OperatorMatrix/AxialParity/H0Inv_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+Export[fn,IntegerPart[10^(Prec+10)*H0Inv],"Table"];
+
+
+
 
 
 
