@@ -37,7 +37,7 @@ zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 \[Sigma]=z;(*(1+z)/2;*)
 \[Sigma]\[Sigma]=zz;(*(1+zz)/2;*)
 
-ToString[$CommandLine[[Length@$CommandLine]]];
+InputParFile=ToString[$CommandLine[[Length@$CommandLine]]];
 kyLoad=ToExpression@Import[InputParFile,"List"];
 Print[InputParFile];
 
