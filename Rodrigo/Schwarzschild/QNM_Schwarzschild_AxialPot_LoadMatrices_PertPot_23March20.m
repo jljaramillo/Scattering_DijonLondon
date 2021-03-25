@@ -104,7 +104,7 @@ M=MnoPert+\[Delta]M*\[Epsilon]/Norm\[Delta]M;
 
 Print["Calculating QNM"];
 EigenSol=Eigensystem[N[M,Prec]];
-
+Print["Done"];
 
 PosQNM=Position[EigenSol[[1]],x_/;Im@x!=0]//Flatten;
 nQNM=Length@PosQNM
@@ -119,8 +119,10 @@ SpectrumData=Table[{Re@EigenSolQNM[[1,iqnm]],Im@EigenSolQNM[[1,iqnm]]},{iqnm,1,L
 
 BranchCutData=Table[{Re@EigenSolBranchCut[[1,iqnm]],Im@EigenSolBranchCut[[1,iqnm]]},{iqnm,1,Length@EigenSolBranchCut[[1]]}];
 
+Print["Export Data"];
 fn="Data/AxialParity/Spectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 Export[fn,N[SpectrumData,Prec],"Table"];
 
 fn="Data/AxialParity/BranchSpectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[BranchCutData,Prec],"Table"];
+Print["Done"];
