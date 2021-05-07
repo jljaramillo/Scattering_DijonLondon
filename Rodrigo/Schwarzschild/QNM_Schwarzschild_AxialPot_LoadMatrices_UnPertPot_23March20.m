@@ -20,7 +20,7 @@ z0=0;
 z1=1;
 \[CapitalDelta]z=z1-z0;
 
-Nz=500;
+Nz=20;
 nz=Nz+1;
 spin=-2;
 l=2;
@@ -101,3 +101,6 @@ Export[fn,N[SpectrumData,Prec],"Table"];
 fn="Data/AxialParity/BranchSpectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[BranchCutData,Prec],"Table"];
 Print["Done"];
+
+
+
