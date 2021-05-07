@@ -38,17 +38,12 @@ zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 \[Sigma]\[Sigma]=zz;(*(1+zz)/2;*)
 
 
-
 (* ::Subsubsection:: *)
 (*Load Matrices*)
 
 
-fn="OperatorMatrix/AxialParity/M_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/M_spin_"<>ToString[spin]<>"_l_"<>ToString[l]<>"N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 MnoPert=N[Import[fn,"Table"]/10^(Prec+10),Prec];
-
-fn="OperatorMatrix/AxialParity/H0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
-H0=N[Import[fn,"Table"]/10^(Prec+10),Prec];
-(*H0Inv=Inverse@H0;*)
 
 
 (* ::Subsubsection:: *)
@@ -72,19 +67,10 @@ Func[\[Sigma]_]:=1;(*Exp[-1/(\[Sigma]^2)];*)
 FuncVec=Limit[Func[aa], aa->\[Sigma], Direction->"FromAbove"];
 
 
-Id=IdentityMatrix[Nz+1];
-Zero=ConstantArray[0,{Nz+1,Nz+1}];
-\[Delta]M=ArrayFlatten[{
-{Zero,Zero} , 
-{FuncVec*Vpert*Id/(1+\[Sigma]),Zero} }];
-
-
-
-
 (* ::Input::Initialization:: *)
 \[Epsilon]=0;
 Print[\[Epsilon]];
-M=MnoPert; (*+\[Delta]M*\[Epsilon]/Norm\[Delta]M*);
+M=MnoPert;
 
 
 (* ::Subsubsection:: *)
@@ -115,6 +101,3 @@ Export[fn,N[SpectrumData,Prec],"Table"];
 fn="Data/AxialParity/BranchSpectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_eps_"<>ToString[N[\[Epsilon]]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[BranchCutData,Prec],"Table"];
 Print["Done"];
-
-
-
