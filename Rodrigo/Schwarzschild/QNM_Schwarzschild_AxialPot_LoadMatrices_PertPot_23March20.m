@@ -46,12 +46,14 @@ Print[InputParFile];
 (*Load Matrices*)
 
 
-fn="OperatorMatrix/AxialParity/M_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/M_spin_"<>ToString[spin]<>"_l_"<>ToString[l]<>"N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 MnoPert=N[Import[fn,"Table"]/10^(Prec+10),Prec];
 
-fn="OperatorMatrix/AxialParity/H0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/H0_spin_"<>ToString[spin]<>"_l_"<>ToString[l]<>"N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 H0=N[Import[fn,"Table"]/10^(Prec+10),Prec];
-H0Inv=Inverse@H0;
+
+fn="OperatorMatrix/AxialParity/H0Inv_spin_"<>ToString[spin]<>"_l_"<>ToString[l]<>"N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+H0Inv=N[Import[fn,"Table"]/10^(Prec+10),Prec];
 
 
 (* ::Subsubsection:: *)
@@ -128,6 +130,3 @@ Export[fn,N[SpectrumData,Prec],"Table"];
 fn="Data/AxialParity/BranchSpectra"<>FuncName<>"_N_"<>ToString[Nz]<>"_spin"<>ToString[spin]<>"_l"<>ToString[l]<>"_Freq_log10eps_"<>ToString[N[y]]<>"_ksig_"<>ToString[kk]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat";
 Export[fn,N[BranchCutData,Prec],"Table"];
 Print["Done"];
-
-
-

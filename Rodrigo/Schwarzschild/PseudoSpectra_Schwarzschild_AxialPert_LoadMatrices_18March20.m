@@ -50,10 +50,10 @@ zz=N[Table[z0+1/2 \[CapitalDelta]z (1+x[i,NzHigh]),{i,0,NzHigh}],Prec];
 (*Load Matrices*)
 
 
-fn="OperatorMatrix/AxialParity/M_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/M_spin_"<>ToString[spin]<>"_l_"<>ToString[l]<>"N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 M=N[Import[fn,"Table"]/10^(Prec+10),Prec];
 
-fn="OperatorMatrix/AxialParity/MAdj0_N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
+fn="OperatorMatrix/AxialParity/MAdj0_spin_"<>ToString[spin]<>"_l_"<>ToString[l]<>"N_"<>ToString[Nz]<>"_Prec_"<>ToString[Floor[Prec]]<>".dat"
 MAdj0=N[Import[fn,"Table"]/10^(Prec+10),Prec];
 
 
